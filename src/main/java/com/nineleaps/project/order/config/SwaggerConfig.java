@@ -7,6 +7,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -14,6 +15,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+	
+	// Swagger Metadata: http://localhost:8080/v2/api-docs
+	// Swagger UI URL: http://localhost:8080/swagger-ui.html
 	
 	@Bean
 	public Docket api() {
@@ -27,10 +31,12 @@ public class SwaggerConfig {
 	
 	 private ApiInfo apiInfo() {
 	        return new ApiInfoBuilder()              
-	                .title("REST API for Order")
-	                .description("Servicesx") 
-	                .termsOfServiceUrl("http://localhost:8080/")
-	                .version("1.0")
+	                .title("Nineleaps Order Management Service")
+	                .description("This page lists all API's of Order Service") 
+	                .version("2.0")
+	                .contact(new Contact("Garima Pruthi", "https://nineleaps.com", "garima.pruthi@nineleaps.com"))
+	                .license("License 2.0")
+					.licenseUrl("https://nineleaps.com/license.html")
 	                .build();
 	    }
 	 
