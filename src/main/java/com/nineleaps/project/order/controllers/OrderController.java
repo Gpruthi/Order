@@ -76,9 +76,10 @@ public class OrderController {
 	})
 	@PostMapping("/orders")
 	public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+		
 		Order orderPlaced = service.addOrder(order);
-		//String url = "https://localhost:8081/publish";
-		//String response = restTemplate.postForObject(url, orderPlaced, String.class);
+		String url = "https://localhost:8082/publish";
+		String response = restTemplate.postForObject(url, orderPlaced, String.class);
 		return new ResponseEntity<Order>(orderPlaced, HttpStatus.CREATED);
 	}
 
