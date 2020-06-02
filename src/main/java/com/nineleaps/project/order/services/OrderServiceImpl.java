@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nineleaps.project.order.config.exceptions.OrderNotFoundException;
 import com.nineleaps.project.order.entities.Order;
+import com.nineleaps.project.order.exceptions.OrderNotFoundException;
 import com.nineleaps.project.order.repositories.OrderRepository;
 
 @Service
