@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.google.gson.Gson;
 import com.nineleaps.project.order.entities.Order;
+import com.nineleaps.project.order.entities.PublishMessageModel;
 import com.nineleaps.project.order.exceptions.OrderNotFoundException;
 import com.nineleaps.project.order.services.OrderService;
 
@@ -32,6 +34,7 @@ public class OrderController {
 
 	private final OrderService service;
 	
+	@Autowired
 	private RestTemplate restTemplate;
 
 	@Autowired
@@ -78,8 +81,19 @@ public class OrderController {
 	public ResponseEntity<Order> addOrder(@RequestBody Order order) {
 		
 		Order orderPlaced = service.addOrder(order);
-		String url = "https://localhost:8082/publish";
-		String response = restTemplate.postForObject(url, orderPlaced, String.class);
+		String url = "http://localhost:8082/api/publish";
+		Gson gson = new Gson();
+		String orderString = gson.toJson(orderPlaced);
+		
+		PublishMessageModel obj2 = new PublishMessageModel();
+		obj2.setTopicName("SupplierTopic");
+		obj2.setMessage(orderString);
+		
+		//String ValueasJson = obj1.writeValueAsString("{\"TopicName\":\"SupplierTopic\",\"Message\":\""+orderString+"\"}");		
+		//System.out.println("ValueasJson : "+ ValueasJson);
+		
+		PublishMessageModel response = restTemplate.postForObject(url, obj2, PublishMessageModel.class);
+		System.out.println("response : "+ response);
 		return new ResponseEntity<Order>(orderPlaced, HttpStatus.CREATED);
 	}
 
